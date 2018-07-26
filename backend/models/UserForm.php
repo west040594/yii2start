@@ -7,6 +7,7 @@ use Yii;
 use yii\base\Exception;
 use yii\base\Model;
 use yii\helpers\ArrayHelper;
+use yii\web\JsExpression;
 
 /**
  * Create user form
@@ -119,6 +120,7 @@ class UserForm extends Model
             if (!$model->save()) {
                 throw new Exception('Model not saved');
             }
+
             if ($isNewRecord) {
                 $model->afterSignup();
             }

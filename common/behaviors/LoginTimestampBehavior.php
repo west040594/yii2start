@@ -31,7 +31,9 @@ class LoginTimestampBehavior extends Behavior
      */
     public function afterLogin($event)
     {
+
         $user = $event->identity;
+        $user->assignRole(\common\models\User::ROLE_AUTHENTICATED);
         $user->touch($this->attribute);
         $user->save(false);
     }

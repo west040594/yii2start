@@ -63,6 +63,9 @@ class SignInController extends \yii\web\Controller
      */
     public function actionLogin()
     {
+        if (!Yii::$app->user->isGuest) {
+            return $this->goHome();
+        }
         $model = new LoginForm();
         if (Yii::$app->request->isAjax) {
             $model->load($_POST);
@@ -116,6 +119,9 @@ class SignInController extends \yii\web\Controller
      */
     public function actionSignup()
     {
+        if (!Yii::$app->user->isGuest) {
+            return $this->goHome();
+        }
         $model = new SignupForm();
         if ($model->load(Yii::$app->request->post())) {
             $user = $model->signup();
@@ -147,6 +153,10 @@ class SignInController extends \yii\web\Controller
      */
     public function actionActivation($token)
     {
+        if (!Yii::$app->user->isGuest) {
+            return $this->goHome();
+        }
+
         $token = UserToken::find()
             ->byType(UserToken::TYPE_ACTIVATION)
             ->byToken($token)
@@ -176,6 +186,9 @@ class SignInController extends \yii\web\Controller
      */
     public function actionRequestPasswordReset()
     {
+        if (!Yii::$app->user->isGuest) {
+            return $this->goHome();
+        }
         $model = new PasswordResetRequestForm();
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             if ($model->sendEmail()) {
@@ -205,6 +218,9 @@ class SignInController extends \yii\web\Controller
      */
     public function actionResetPassword($token)
     {
+        if (!Yii::$app->user->isGuest) {
+            return $this->goHome();
+        }
         try {
             $model = new ResetPasswordForm($token);
         } catch (InvalidArgumentException $e) {
@@ -231,6 +247,9 @@ class SignInController extends \yii\web\Controller
      */
     public function successOAuthCallback($client)
     {
+        if (!Yii::$app->user->isGuest) {
+            return $this->goHome();
+        }
         // use BaseClient::normalizeUserAttributeMap to provide consistency for user attribute`s names
         $attributes = $client->getUserAttributes();
         $user = User::find()->where([

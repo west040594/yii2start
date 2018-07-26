@@ -37,9 +37,11 @@ class User extends ActiveRecord implements IdentityInterface
     const STATUS_ACTIVE = 2;
     const STATUS_DELETED = 3;
 
-    const ROLE_USER = 'user';
-    const ROLE_MANAGER = 'manager';
-    const ROLE_ADMINISTRATOR = 'administrator';
+    const ROLE_GUEST = 'Guest';
+    const ROLE_REGISTERED = 'Registered';
+    const ROLE_AUTHENTICATED = 'Authenticated';
+    const ROLE_ADMIN = 'Administrator';
+    const ROLE_MASTER = 'Master';
 
     const EVENT_AFTER_SIGNUP = 'afterSignup';
     const EVENT_AFTER_LOGIN = 'afterLogin';
@@ -50,6 +52,14 @@ class User extends ActiveRecord implements IdentityInterface
     public static function tableName()
     {
         return '{{%user}}';
+    }
+
+    public function assignRole($role)
+    {
+        if(!Yii::$app->authManager->checkAccess($this->getId(), $role)) {
+            $auth = Yii::$app->authManager;
+            $auth->assign($auth->getRole($role), $this->getId());
+        }
     }
 
     /**
@@ -260,8 +270,8 @@ class User extends ActiveRecord implements IdentityInterface
         $this->link('userProfile', $profile);
         $this->trigger(self::EVENT_AFTER_SIGNUP);
         // Default role
-        $auth = Yii::$app->authManager;
-        $auth->assign($auth->getRole(User::ROLE_USER), $this->getId());
+        //$auth = Yii::$app->authManager;
+        $this->assignRole(User::ROLE_REGISTERED);
     }
 
     /**

@@ -9,6 +9,7 @@ $config = [
             'class' => frontend\modules\user\Module::class,
             'shouldBeActivated' => false,
             'enableLoginByPass' => false,
+            'as afterLogin' => common\behaviors\LoginTimestampBehavior::class,
         ],
         'vote' => [
             'class' => hauntd\vote\Module::class,

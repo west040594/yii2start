@@ -13,13 +13,13 @@ return [
             [
                 'controllers' => ['sign-in'],
                 'allow' => true,
-                'roles' => ['?'],
+                'roles' => ['Guest'],
                 'actions' => ['login'],
             ],
             [
                 'controllers' => ['sign-in'],
                 'allow' => true,
-                'roles' => ['@'],
+                'roles' => ['Authenticated'],
                 'actions' => ['logout'],
             ],
             [
@@ -39,12 +39,8 @@ return [
                 'roles' => ['administrator'],
             ],
             [
-                'controllers' => ['user'],
-                'allow' => false,
-            ],
-            [
                 'allow' => true,
-                'roles' => ['manager', 'administrator'],
+                'roles' => ['administer'],
             ],
         ],
     ],

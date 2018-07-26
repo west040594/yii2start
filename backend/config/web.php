@@ -36,8 +36,7 @@ $config = [
             'class' => backend\modules\translation\Module::class,
         ],
         'rbac' => [
-            'class' => backend\modules\rbac\Module::class,
-            'defaultRoute' => 'rbac-auth-item/index',
+            'class' => justcoded\yii2\rbac\Module::class,
         ],
     ],
 

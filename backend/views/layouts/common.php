@@ -155,7 +155,7 @@ $bundle = BackendAsset::register($this);
                         'icon' => '<i class="fa fa-users"></i>',
                         'url' => ['/user/index'],
                         'active' => (Yii::$app->controller->id == 'user'),
-                        'visible' => Yii::$app->user->can('administrator'),
+                        'visible' => Yii::$app->user->can('administer'),
                     ],
                     [
                         'label' => Yii::t('backend', 'Content'),
@@ -230,33 +230,10 @@ $bundle = BackendAsset::register($this);
                         'options' => ['class' => 'header'],
                     ],
                     [
-                        'label' => Yii::t('backend', 'RBAC Rules'),
-                        'url' => '#',
+                        'label' => Yii::t('backend', 'RBAC'),
+                        'url' => ['/rbac/permissions'],
                         'icon' => '<i class="fa fa-flag"></i>',
-                        'options' => ['class' => 'treeview'],
-                        'active' => in_array(Yii::$app->controller->id, ['rbac-auth-assignment', 'rbac-auth-item', 'rbac-auth-item-child', 'rbac-auth-rule']),
-                        'items' => [
-                            [
-                                'label' => Yii::t('backend', 'Auth Assignment'),
-                                'url' => ['/rbac/rbac-auth-assignment/index'],
-                                'icon' => '<i class="fa fa-circle-o"></i>',
-                            ],
-                            [
-                                'label' => Yii::t('backend', 'Auth Items'),
-                                'url' => ['/rbac/rbac-auth-item/index'],
-                                'icon' => '<i class="fa fa-circle-o"></i>',
-                            ],
-                            [
-                                'label' => Yii::t('backend', 'Auth Item Child'),
-                                'url' => ['/rbac/rbac-auth-item-child/index'],
-                                'icon' => '<i class="fa fa-circle-o"></i>',
-                            ],
-                            [
-                                'label' => Yii::t('backend', 'Auth Rules'),
-                                'url' => ['/rbac/rbac-auth-rule/index'],
-                                'icon' => '<i class="fa fa-circle-o"></i>',
-                            ],
-                        ],
+                        'active' => (Yii::$app->controller->module->id == 'rbac'),
                     ],
                     [
                         'label' => Yii::t('backend', 'Files'),
